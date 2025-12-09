@@ -1,14 +1,14 @@
-# Mi API
+## Mi API
 
 API REST construida con FastAPI que ofrece flujo básico de autenticación (registro, login con JWT y perfil del usuario autenticado) respaldado por PostgreSQL y SQLAlchemy.
 
-## 🚀 Características
+## Características
 - FastAPI + Pydantic para validar y documentar los endpoints.
 - Autenticación con contraseñas encriptadas vía `bcrypt` y emisión de tokens JWT.
 - Persistencia con SQLAlchemy y PostgreSQL (driver `psycopg`).
 - Dependencias gestionadas mediante `requirements.txt` y scripts `uvicorn`/`fastapi` para desarrollo.
 
-## 🧱 Stack principal
+##  Stack principal
 | Capa        | Tecnología |
 |-------------|------------|
 | Framework   | FastAPI    |
@@ -16,7 +16,7 @@ API REST construida con FastAPI que ofrece flujo básico de autenticación (regi
 | DB          | PostgreSQL |
 | Auth        | OAuth2 Password + JWT |
 
-## 📁 Estructura del proyecto
+##  Estructura del proyecto
 ```
 app/
 ├── core/          # Seguridad (hashing, JWT, dependencias de auth)
@@ -28,7 +28,7 @@ app/
 └── test/          # Pruebas
 ```
 
-## ⚙️ Configuración
+##  Configuración
 ### Variables de entorno
 | Variable | Descripción | Valor por defecto |
 |----------|-------------|-------------------|
@@ -53,7 +53,7 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-## ▶️ Ejecutar el servidor
+## ▶ Ejecutar el servidor
 Desde la raíz del repositorio (`Mi-api`):
 ```powershell
 python -m uvicorn app.main:app --reload
@@ -62,23 +62,21 @@ python -m fastapi dev app/main.py
 ```
 La documentación interactiva estará disponible en `http://localhost:8000/docs` y la versión alternativa en `http://localhost:8000/redoc`.
 
-## 🧪 Pruebas
+##  Pruebas
 Si existen pruebas en `app/test`, puedes ejecutarlas con:
 ```powershell
 pytest
 ```
 
-## 📬 Endpoints principales
+##  Endpoints principales
 | Método | Ruta            | Descripción |
 |--------|-----------------|-------------|
 | POST   | `/auth/register`| Crea un usuario nuevo. |
 | POST   | `/auth/login`   | Retorna `access_token` JWT. |
 | GET    | `/auth/me`      | Devuelve el usuario autenticado (requiere `Authorization: Bearer <token>`). |
 
-## 🛠️ Desarrollo futuro
+##  Desarrollo futuro
 - Añadir CRUD completo de usuarios
 - Integrar Alembic para migraciones automáticas
 - Cobertura de pruebas para flujos de autenticación
 
----
-Si tienes dudas o propuestas de mejora, abre un issue o envía un PR. ¡Feliz coding! ✨

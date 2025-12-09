@@ -11,7 +11,7 @@ from sqlalchemy.orm import Session
 from app.db import get_db
 from app.models import User
 
-SECRET_KEY = os.getenv("SECRET_KEY", "CAMBIAME")
+SECRET_KEY = os.getenv("SECRET_KEY", "SUPERSECRETKEY")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "60"))
 
@@ -19,12 +19,12 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
 
 
 def hash_password(password: str) -> str:
-    """Return a bcrypt hash for the provided plaintext password."""
+    """Devuelva un hash bcrypt para la contraseña en texto plano proporcionada."""
     return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    """Check whether a plaintext password matches its bcrypt hash."""
+    """Verifique si una contraseña en texto plano coincide con su hash bcrypt."""
     try:
         return bcrypt.checkpw(plain_password.encode("utf-8"), hashed_password.encode("utf-8"))
     except ValueError:
@@ -32,7 +32,7 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
-    """Generate a JWT access token embedding the supplied data."""
+    """Genere un token de acceso JWT que incorpora la información de usuario en el payload."""
     to_encode = data.copy()
     expire = datetime.utcnow() + (expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
     to_encode.update({"exp": expire})
