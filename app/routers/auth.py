@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Form
 from sqlalchemy.orm import Session
 
 from app.schemas import UserCreate, UserOut
@@ -37,14 +37,15 @@ def register(user_data: UserCreate, db: Session = Depends(get_db)):
 
 
 @router.post("/login")
-def login(data: UserCreate, db: Session = Depends(get_db)):
+def login(email: str = Form(...), password: str = Form(...), db: Session = Depends(get_db)):
+    # Buscar por email
     user = (
         db.query(User)
-        .filter(User.email == data.email)
+        .filter(User.email == email)
         .first()
     )
 
-    if not user or not verify_password(data.password, user.hashed_password):
+    if not user or not verify_password(password, user.hashed_password):
         raise HTTPException(status_code=400, detail="Credenciales incorrectas")
 
     token = create_access_token({"sub": str(user.id)})
